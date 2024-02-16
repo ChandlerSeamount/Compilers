@@ -34,11 +34,11 @@ vector<vector<string>> merge_states(vector<vector<string>> T) {
             }
         }
         // Puts those partitions either back on the stack or push them onto the map
-        M.resize(T.size());
+        M.resize(T.size()+1);
         for (unsigned int i = 0; i < x.size(); i++) {
-            
-            if ((C + 3 == T.size() || x.at(i).size() == 1) && x.at(i).size() > 0) {
+            if ((C + 3 >= T[0].size() || x.at(i).size() == 1) && x.at(i).size() > 0) {
                 M.at(stoi(x.at(i).at(0))) = (x.at(i));
+                
             } else if (x.at(i).size() > 0) {
                 L.push(make_pair(x.at(i), C + 1));
             }
@@ -72,7 +72,7 @@ vector<vector<string>> merge_states(vector<vector<string>> T) {
     for (unsigned int i = 0; i < M.size(); i++) {
         if (!M.at(i).empty()) {
             
-            for (unsigned int j = 2; j < T[0].size()-1; j++) {
+            for (unsigned int j = 2; j < T[0].size(); j++) {
                 R[counter].push_back(T[stoi(M[i][0])][j]);
             }
             counter++;
