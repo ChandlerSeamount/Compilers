@@ -2,7 +2,7 @@
 # the below example
 
 TARGET = DFAopt
-SRC_FILES = main.cpp
+SRC_FILES = main.cpp merge_states.cpp
 
 # DO NOT EDIT BELOW HERE
 CXX = g++
@@ -28,4 +28,5 @@ clean:
 	$(DEL) $(TARGET) $(OBJECTS)
 
 # DEPENDENCIES
-main.o: main.cpp
+main.o: main.cpp merge_states.h
+merge_states.o: merge_states.cpp merge_states.h
