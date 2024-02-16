@@ -81,3 +81,26 @@ vector<vector<string>> merge_states(vector<vector<string>> T) {
     return R;
 }
 
+
+vector<vector<string>> read_file(string filename) {
+    vector<vector<string>> NFA;
+    ifstream my_file(filename);
+    string accept;
+    my_file >> accept;
+    while (!my_file.eof()) {
+        vector<string> row;
+        row.push_back(accept);
+        my_file >> accept;
+        while (accept != "-" && accept != "+" && !my_file.eof()) {
+            row.push_back(accept);
+            my_file >> accept;
+            
+        }
+        if (my_file.eof()) {
+            row.push_back(accept);
+        }
+        
+        NFA.push_back(row);
+    }
+    return NFA;
+}

@@ -2,7 +2,7 @@
 # the below example
 
 TARGET = DFAopt
-SRC_FILES = main.cpp merge_states.cpp
+SRC_FILES = main.cpp merge_states.cpp NFAtoDFAfunc.cpp
 
 # DO NOT EDIT BELOW HERE
 CXX = g++
@@ -28,5 +28,6 @@ clean:
 	$(DEL) $(TARGET) $(OBJECTS)
 
 # DEPENDENCIES
-main.o: main.cpp merge_states.h
+main.o: main.cpp merge_states.h NFAtoDFAfunc.h
 merge_states.o: merge_states.cpp merge_states.h
+NFAtoDFAfunc.o: NFAtoDFAfunc.cpp NFAtoDFAfunc.h
