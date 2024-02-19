@@ -40,6 +40,9 @@ int main(int argc, char *argv[]) {
     int num_state;
     string lambda;
     file_in >> num_state;
+    if (file_in.eof()) {
+	    return 1;
+    }
     file_in >> lambda;
     unsigned int count = 0;
     map<string, unsigned int> alphabet;
