@@ -156,3 +156,82 @@ vector<vector<string>> convertDFA(vector<edge> edges, map<string, unsigned int> 
    
     return T;
 }
+
+vector<vector<string>> prune_unreach(vector<vector<string>> DFA) {
+    stack<string> S;
+    set<string> L;
+    S.push("0");
+    L.insert("0");
+    while (!S.empty()) {
+        string cur = S.top();
+        S.pop();
+        for (size_t i = 2; i < DFA[stoi(cur)].size(); i++) {
+            if (DFA[stoi(cur)][i] != "E" && L.count(DFA[stoi(cur)][i]) == 0) {
+                S.push(DFA[stoi(cur)][i]);
+                L.insert(DFA[stoi(cur)][i]);
+            }
+        }
+    }
+    vector<vector<string>> reformed(DFA);
+    for (size_t i = 0; i < DFA.size(); i++) {
+        if (L.count(DFA[i][1]) == 0) {
+            reformed.erase(reformed.begin() + i);
+        }
+    }
+    reformed = make_sane(reformed);
+    return reformed;
+}
+
+vector<vector<string>> prune_dead(vector<vector<string>> DFA) {
+    stack<string> S;
+    set<string> L;
+    vector<vector<string>> backwards;
+    for (size_t i = 0; i < DFA.size(); i++) {
+        backwards.push_back({DFA[i][0], DFA[i][1]});
+        for (size_t j = 2; j < DFA[i].size(); j++) {
+            backwards[i].push_back("E");
+        }
+        if (DFA[i][0] == "+") {
+            S.push(DFA[i][1]);
+            L.insert(DFA[i][1]);
+        }
+    }
+    while (!S.empty()) {
+        string cur = S.top();
+        S.pop();
+        for (size_t i = 2; i < backwards[stoi(cur)].size(); i++) {
+            if (backwards[stoi(cur)][i] != "E" && L.count(backwards[stoi(cur)][i]) == 0) {
+                S.push(backwards[stoi(cur)][i]);
+                L.insert(backwards[stoi(cur)][i]);
+            }
+        }
+    }
+    vector<vector<string>> reformed(DFA);
+    for (size_t i = 0; i < DFA.size(); i++) {
+        if (L.count(DFA[i][1]) == 0) {
+            reformed.erase(reformed.begin() + i);
+        }
+    }
+    reformed = make_sane(reformed);
+    return reformed;
+}
+
+int check_valid(vector<vector<string>> DFA, string token, map<string, unsigned int> alphabet) {
+    if (token == "") {
+        return 0;
+    } 
+    string state = "0";
+    for (size_t i = 0; i < token.length(); i++) {
+        if (DFA[stoi(state)][alphabet[token.substr(i,i+1)] + 2] != "E") {
+            state = DFA[stoi(state)][alphabet[token.substr(i,i+1)] + 2];
+        } else {
+            return i + 1;
+        }
+    }
+
+    if (DFA[stoi(state)][0] == "+") {
+        return -1;
+    } else {
+        return token.length() + 1;
+    }
+}

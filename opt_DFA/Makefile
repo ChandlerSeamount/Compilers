@@ -1,7 +1,7 @@
 # A line starting with a has is a comment, we'll build up
 # the below example
 
-TARGET = DFAopt
+TARGET = NFAMATCH
 SRC_FILES = main.cpp merge_states.cpp NFAtoDFAfunc.cpp
 
 # DO NOT EDIT BELOW HERE

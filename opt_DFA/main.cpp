@@ -28,7 +28,7 @@ void print1d(vector<string> vec) {
 
 int main(int argc, char *argv[]) {
     
-    if (argc < 2) {
+    if (argc < 3) {
         return 1;
     }
     ifstream file_in;
@@ -79,8 +79,32 @@ int main(int argc, char *argv[]) {
         size1 = DFA.size();
         DFA = merge_states(DFA);
     } while (size1 != DFA.size());
-    print2d(DFA);
+    do {
+        size1 = DFA.size();
+        DFA = prune_unreach(DFA);
+    } while (size1 != DFA.size());
 
+    // DFA = prune_dead(DFA);
+
+    ofstream file_out(argv[2]);
+    for (unsigned int i = 0; i < DFA.size(); i++) {
+        for (unsigned int j = 0; j < DFA.at(i).size(); j++) {
+            file_out << DFA.at(i).at(j) << " ";
+        }
+        file_out << endl;
+    }
+    // print2d(DFA);
+    // cout << argv[5] << endl;
+    for (int i = 3; i < argc; i++) {
+        int result = check_valid(DFA, argv[i], alphabet);
+        cout << "OUTPUT ";
+        if (result == -1) {
+            cout << ":M:";
+        } else {
+            cout << result;
+        }
+        cout << endl;
+    }
     
     return 0;
 }
