@@ -17,4 +17,6 @@ vector<vector<string>> merge_states(vector<vector<string>> T);
 
 vector<vector<string>> read_file(string filename);
 
+vector<vector<string>> make_sane(vector<vector<string>>);
+
 #endif

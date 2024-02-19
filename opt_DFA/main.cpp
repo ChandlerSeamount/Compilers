@@ -73,11 +73,12 @@ int main(int argc, char *argv[]) {
     // }
 
     // vector<vector<string>> DFA = merge_states(NFA);
-    // unsigned int size1;
-    // do {
-    //     size1 = DFA.size();
-    //     DFA = merge_states(DFA);
-    // } while (size1 != DFA.size());
+    DFA = make_sane(DFA);
+    unsigned int size1;
+    do {
+        size1 = DFA.size();
+        DFA = merge_states(DFA);
+    } while (size1 != DFA.size());
     print2d(DFA);
 
     
