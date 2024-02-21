@@ -87,7 +87,7 @@ int main(int argc, char *argv[]) {
         DFA = prune_unreach(DFA);
     } while (size1 != DFA.size());
 
-    // DFA = prune_dead(DFA);
+    DFA = prune_dead(DFA);
 
     ofstream file_out(argv[2]);
     for (unsigned int i = 0; i < DFA.size(); i++) {
