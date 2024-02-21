@@ -45,9 +45,11 @@ int main(int argc, char *argv[]) {
             rules.back().result.push_back(arrow);
             start = nonT;
         } else {
-            
+            if (arrow != "lambda") {
+                symbols.insert(arrow);
+            }
             rules.back().result.push_back(arrow);
-            symbols.insert(arrow);
+            
         }
         last = arrow;
     }
