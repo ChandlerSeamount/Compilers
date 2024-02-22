@@ -29,4 +29,6 @@ vector<vector<string>> prune_dead(vector<vector<string>> DFA);
 
 int check_valid(vector<vector<string>> DFA, string token, map<string, unsigned int> alphabet);
 
+void print2d(vector<vector<string>> vec);
+
 #endif

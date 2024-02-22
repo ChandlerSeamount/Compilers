@@ -106,15 +106,16 @@ vector<vector<string>> read_file(string filename) {
 }
 
 vector<vector<string>> make_sane(vector<vector<string>> vec) {
+    vector<vector<string>> change(vec);
     for (size_t i = 0; i < vec.size(); i++) {
         string node = vec[i][1];
         for (size_t j = 0; j < vec.size(); j++) {
             for (size_t k = 1; k < vec[j].size(); k++) {
                 if (node == vec[j][k]) {
-                    vec[j][k] = to_string(i);
+                    change[j][k] = to_string(i);
                 }
             }
         }
     }
-    return vec;
+    return change;
 }
